@@ -7,13 +7,10 @@ public class Robot {
     char symbol;
     char oponentSymbol;
 
-    Robot(String mode, char symbol) throws Exception {
+    Robot(String mode, char symbol){
         if (mode.equals("easy") || mode.equals("medium") || mode.equals("hard")) {
             this.mode = mode;
-        } /* else{
-            System.out.println("Error in class Robot, constructor");
-        } */
-        //TODO There is probably error in equals
+        }
         this.symbol = symbol;
         if (symbol == 'X') {
             oponentSymbol = 'O';
@@ -23,12 +20,10 @@ public class Robot {
     }
 
     public void makeMove(char[][] field) {
-        if (mode.equals("easy")) {
-            easyMove(field);
-        } else if (mode.equals("medium")) {
-            mediumMove(field);
-        } else if (mode.equals("hard")) {
-            hardMove(field);
+        switch (mode) {
+            case "easy" -> easyMove(field);
+            case "medium" -> mediumMove(field);
+            case "hard" -> hardMove(field);
         }
     }
 
@@ -64,12 +59,16 @@ public class Robot {
     public int minimax(char[][] field, int depth, boolean isMaximizingPlayer) {
         String boardValue = fieldValue(field);
         if (!boardValue.equals("nothing")){
-            if (boardValue.equals("X")){
-                return 10;
-            } else if (boardValue.equals("O")) {
-                return -10;
-            } else if (boardValue.equals("tie")) {
-                return 0;
+            switch (boardValue) {
+                case "X" -> {
+                    return 10;
+                }
+                case "O" -> {
+                    return -10;
+                }
+                case "tie" -> {
+                    return 0;
+                }
             }
         }
 
@@ -146,7 +145,6 @@ public class Robot {
             }
         }
 
-        // left up to right down
         while (true) {
             int sumYou = 0;
             int sumOpponent = 0;
@@ -167,7 +165,7 @@ public class Robot {
             }
             break;
         }
-        // left down to right up
+
         while (true) {
             int sumYou = 0;
             int sumOpponent = 0;
@@ -205,7 +203,7 @@ public class Robot {
     public static String fieldValue(char[][] field) {
         char winChar = 'n';
 
-        // --- normal control ----
+        // --- row + col control ----
 
         for (int i = 0; i < field.length; i++) {
             int count1 = 0;
@@ -225,7 +223,6 @@ public class Robot {
             }
         }
 
-
         // --- cross control ----
 
         int count3 = 0;
@@ -237,7 +234,6 @@ public class Robot {
         if (count3 == field.length) {
             winChar = field[0][0];
         }
-
 
         // second
         int count4 = 0;

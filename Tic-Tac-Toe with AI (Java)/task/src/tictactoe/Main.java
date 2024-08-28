@@ -1,8 +1,6 @@
 package tictactoe;
-
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.SimpleFormatter;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -79,12 +77,12 @@ public class Main {
     public static char getCurrent(char[][] field){
         int xs = 0;
         int os = 0;
-        for (int i = 0; i < field.length; i++){
-            for (int j = 0; j < field[i].length; j++){
-                if (field[i][j] == 'X'){
+        for (char[] chars : field) {
+            for (int j = 0; j < chars.length; j++) {
+                if (chars[j] == 'X') {
                     xs++;
                 }
-                if (field[i][j] == 'O'){
+                if (chars[j] == 'O') {
                     os++;
                 }
             }
@@ -98,9 +96,7 @@ public class Main {
     public static char[][] createField(){
         char[][] field = new char[3][3];
         for (int i = 0; i < field.length; i++){
-            for (int j = 0; j < field[i].length; j++){
-                field[i][j] = ' ';
-            }
+            Arrays.fill(field[i], ' ');
         }
         return field;
     }
@@ -110,9 +106,9 @@ public class Main {
         // --- game not finished control ---
 
         int counSpace = 0;
-        for (int i = 0; i < field.length; i++){
-            for (int j = 0; j < field[i].length; j++){
-                if (field[i][j] == ' '){
+        for (char[] chars : field) {
+            for (int j = 0; j < chars.length; j++) {
+                if (chars[j] == ' ') {
                     counSpace++;
                     break;
                 }
@@ -184,10 +180,10 @@ public class Main {
 
     public static void printField(char[][] field){
         System.out.println("---------");
-        for (int i = 0; i < field.length; i++){
+        for (char[] chars : field) {
             System.out.print("| ");
-            for (int j = 0; j < field[i].length; j++){
-                System.out.print(field[i][j] + " ");
+            for (int j = 0; j < chars.length; j++) {
+                System.out.print(chars[j] + " ");
             }
             System.out.println("|");
         }
